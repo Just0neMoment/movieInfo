@@ -9,62 +9,30 @@ const options = {
   },
 };
 
+let allMovies = [];
+
 axios("https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1", options).then((data) => {
-  const results = data.data.results;
-
-  results.forEach((result) => {
-    const title = result["title"];
-    const overview = result["overview"];
-    const poster = result["poster_path"];
-    const vote = result["vote_average"];
-    const id = result["id"];
-
-    const movieCard = createMovieCard(title, overview, poster, vote, id);
-
-    document.getElementById("cardContainer").innerHTML += movieCard;
-  });
-
-  const movieCards = document.querySelectorAll(".movieCard");
-  movieCards.forEach((result) => {
-    result.addEventListener("click", function () {
-      let getMovieId = this.getAttribute("id");
-      return alert("Movie id: " + getMovieId);
-    });
-  });
+  allMovies = data.data.results;
+  displayMovies(allMovies);
 });
-
-function searchMovies(query) {
-  axios(`https://api.themoviedb.org/3/search/movie?query=${query}&language=en-US&page=1`, options)
-    .then((data) => {
-      const results = data.data.results;
-
-      document.getElementById("cardContainer").innerHTML = "";
-
-      results.forEach((result) => {
-        const title = result["title"];
-        const overview = result["overview"];
-        const poster = result["poster_path"];
-        const vote = result["vote_average"];
-        const id = result["id"];
-
-        const movieCard = createMovieCard(title, overview, poster, vote, id);
-
-        document.getElementById("cardContainer").innerHTML += movieCard;
-      });
-    })
-    .catch((error) => {
-      return alert("검색에 실패했습니다:", error);
-    });
-}
 
 document.getElementById("searchForm").addEventListener("submit", function (event) {
   event.preventDefault();
+  const searchQuery = document.getElementById("searchInput").value.toLowerCase();
 
-  const query = document.getElementById("searchInput").value.trim();
-  if (query !== "") {
-    return searchMovies(query);
-  }
+  const filteredMovies = allMovies.filter((movie) => movie.title.toLowerCase().includes(searchQuery));
+  displayMovies(filteredMovies);
 });
+
+function displayMovies(movies) {
+  const cardContainer = document.getElementById("cardContainer");
+  cardContainer.innerHTML = "";
+
+  movies.forEach((movie) => {
+    const movieCard = createMovieCard(movie.title, movie.overview, movie.poster_path, movie.vote_average, movie.id);
+    cardContainer.innerHTML += movieCard;
+  });
+}
 
 function createMovieCard(title, overview, poster, vote, id) {
   return `
