@@ -1,15 +1,46 @@
 <!doctype html>
-<html lang="en">
+<html lang="ko">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite App</title>
-    <link rel="stylesheet" href="/output.css" />
+    <title>Movie Info</title>
+    <link rel="stylesheet" href="./output.css" />
+    <style>
+      html {
+        font-family: Pretendard !important;
+      }
+      img {
+        width: 290px;
+        height: auto;
+        border-radius: 10px;
+      }
+    </style>
   </head>
-  <body>
-    <div>
-      <h1 class="text-[#11ddaa]">Hello World!</h1>
-    </div>
+  <body class="bg-[#101010]">
+    <header class="flex items-center justify-around py-4 border-b border-[#383838]">
+      <h1 class="text-[#ff4848] text-2xl">Movie Info</h1>
+      <a href="https://github.com/Just0neMoment/movieInfo"><i class="fa-brands fa-github text-3xl text-[#e4e4e4]"></i></a>
+    </header>
+
+    <main>
+      <section class="flex flex-col items-center justify-center">
+        <h2 class="text-[#e4e4e4] text-2xl">영화 정보를 검색해보세요 !</h2>
+        <form id="searchForm" class="flex items-center mt-4">
+          <input
+            id="searchInput"
+            type="text"
+            name="title"
+            placeholder="영화 제목을 입력해주세요."
+            class="w-64 h-10 px-2 text-[#e4e4e4] bg-[#202020] border border-[#383838] rounded-md"
+          />
+          <button type="submit" class="h-10 px-4 ml-2 text-[#e4e4e4] bg-[#ff4848] rounded-md">검색</button>
+        </form>
+      </section>
+
+      <div id="cardContainer" class="flex flex-wrap gap-10 justify-center max-w-[1440px] m-auto"></div>
+    </main>
+
+    <script src="https://kit.fontawesome.com/49bf1aaa3f.js" crossorigin="anonymous"></script>
+    <script type="module" src="./script/script.js"></script>
   </body>
 </html>

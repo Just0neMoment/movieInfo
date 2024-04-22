@@ -1,8 +1,11 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./**/*.{html,js}"],
+  content: ["./index.html"],
   theme: {
-    extend: {},
+    extend: {
+      "white": "#e4e4e4",
+      "primary": "ff4848",
+    },
   },
-  plugins: [],
+  plugins: ['prettier-plugin-tailwindcss'],
 }
