@@ -32,6 +32,14 @@ function displayMovies(movies) {
     const movieCard = createMovieCard(movie.title, movie.overview, movie.poster_path, movie.vote_average, movie.id);
     cardContainer.innerHTML += movieCard;
   });
+
+  const movieCards = document.querySelectorAll(".movieCard");
+  movieCards.forEach((result) => {
+    result.addEventListener("click", function () {
+      let getMovieId = this.getAttribute("id");
+      return alert("Movie id: " + getMovieId);
+    });
+  });
 }
 
 function createMovieCard(title, overview, poster, vote, id) {
