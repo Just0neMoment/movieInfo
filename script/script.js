@@ -11,10 +11,17 @@ const options = {
 
 let allMovies = [];
 
-axios("https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1", options).then((data) => {
-  allMovies = data.data.results;
-  displayMovies(allMovies);
-});
+async function fetchMovies() {
+  try {
+    const response = await axios("https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1", options);
+    allMovies = response.data.results;
+    displayMovies(allMovies);
+  } catch (error) {
+    console.error("Failed to fetch movies:", error);
+  }
+}
+
+fetchMovies();
 
 document.getElementById("searchForm").addEventListener("submit", function (event) {
   event.preventDefault();
